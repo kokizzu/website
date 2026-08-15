@@ -83,4 +83,6 @@ labels:
 Following dashboards are generated from mixins and hosted on github:
 
 
-- [*](https://github.com/monitoring-mixins/website/blob/master/assets/velero/dashboards/*.json)
+- [clusterOverview](https://github.com/monitoring-mixins/website/blob/master/assets/velero/dashboards/clusterOverview.json)
+- [logs](https://github.com/monitoring-mixins/website/blob/master/assets/velero/dashboards/logs.json)
+- [overview](https://github.com/monitoring-mixins/website/blob/master/assets/velero/dashboards/overview.json)
