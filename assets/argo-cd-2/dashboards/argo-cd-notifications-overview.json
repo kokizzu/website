@@ -51,7 +51,38 @@
                },
                "unit": "short"
             },
-            "overrides": [ ]
+            "overrides": [
+               {
+                  "matcher": {
+                     "id": "byRegexp",
+                     "options": ".*false$"
+                  },
+                  "properties": [
+                     {
+                        "id": "color",
+                        "value": {
+                           "fixedColor": "red",
+                           "mode": "fixed"
+                        }
+                     }
+                  ]
+               },
+               {
+                  "matcher": {
+                     "id": "byRegexp",
+                     "options": ".*true$"
+                  },
+                  "properties": [
+                     {
+                        "id": "color",
+                        "value": {
+                           "fixedColor": "green",
+                           "mode": "fixed"
+                        }
+                     }
+                  ]
+               }
+            ]
          },
          "gridPos": {
             "h": 8,
@@ -77,7 +108,7 @@
                "sort": "desc"
             }
          },
-         "pluginVersion": "v11.4.0",
+         "pluginVersion": "v13.0.0",
          "targets": [
             {
                "datasource": {
@@ -110,7 +141,38 @@
                },
                "unit": "short"
             },
-            "overrides": [ ]
+            "overrides": [
+               {
+                  "matcher": {
+                     "id": "byRegexp",
+                     "options": ".*false$"
+                  },
+                  "properties": [
+                     {
+                        "id": "color",
+                        "value": {
+                           "fixedColor": "red",
+                           "mode": "fixed"
+                        }
+                     }
+                  ]
+               },
+               {
+                  "matcher": {
+                     "id": "byRegexp",
+                     "options": ".*true$"
+                  },
+                  "properties": [
+                     {
+                        "id": "color",
+                        "value": {
+                           "fixedColor": "green",
+                           "mode": "fixed"
+                        }
+                     }
+                  ]
+               }
+            ]
          },
          "gridPos": {
             "h": 8,
@@ -136,7 +198,7 @@
                "sort": "desc"
             }
          },
-         "pluginVersion": "v11.4.0",
+         "pluginVersion": "v13.0.0",
          "targets": [
             {
                "datasource": {
