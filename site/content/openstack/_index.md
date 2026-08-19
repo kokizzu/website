@@ -16,7 +16,7 @@ Jsonnet source code is available at [github.com/grafana/jsonnet-libs](https://gi
 Complete list of pregenerated alerts is available [here](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/alerts.yaml).
 {{< /panel >}}
 
-### openstack-alerts-openstack
+### openstack-alerts
 
 ##### OpenStackGlanceIsDown
 
@@ -26,7 +26,7 @@ annotations:
   description: OpenStack Glance service is down on cluster {{ $labels.instance }}.
   summary: OpenStack Glance is down.
 expr: |
-  openstack_glance_up{job="integrations/openstack"} == 0
+  openstack_glance_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -40,7 +40,7 @@ annotations:
   description: OpenStack Heat service is down on cluster {{ $labels.instance }}.
   summary: OpenStack Heat is down.
 expr: |
-  openstack_heat_up{job="integrations/openstack"} == 0
+  openstack_heat_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -54,7 +54,7 @@ annotations:
   description: OpenStack Identity service is down on cluster {{ $labels.instance }}.
   summary: OpenStack Identity is down.
 expr: |
-  openstack_identity_up{job="integrations/openstack"} == 0
+  openstack_identity_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -69,7 +69,7 @@ annotations:
     }}.
   summary: OpenStack Placement is down.
 expr: |
-  openstack_placement_up{job="integrations/openstack"} == 0
+  openstack_placement_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -85,11 +85,11 @@ annotations:
     which is above the threshold of 80 percent.
   summary: OpenStack node is using a significant percentage of its allocated memory.
 expr: |
-  (100 * (openstack_placement_resource_usage{job="integrations/openstack", resourcetype="MEMORY_MB"})
+  (100 * (openstack_placement_resource_usage{resourcetype="MEMORY_MB", })
   /
-  (openstack_placement_resource_total{job="integrations/openstack", resourcetype="MEMORY_MB"}
+  (openstack_placement_resource_total{resourcetype="MEMORY_MB", }
   *
-  openstack_placement_resource_allocation_ratio{job="integrations/openstack", resourcetype="MEMORY_MB"}) > 0)
+  openstack_placement_resource_allocation_ratio{resourcetype="MEMORY_MB", }) > 0)
   > 80
 for: 5m
 keep_firing_for: 5m
@@ -108,11 +108,11 @@ annotations:
   summary: OpenStack node is using a large percentage of its allocated memory, consider
     allocating more resources.
 expr: |
-  (100 * (openstack_placement_resource_usage{job="integrations/openstack", resourcetype="MEMORY_MB"})
+  (100 * (openstack_placement_resource_usage{resourcetype="MEMORY_MB", })
   /
-  (openstack_placement_resource_total{job="integrations/openstack", resourcetype="MEMORY_MB"}
+  (openstack_placement_resource_total{resourcetype="MEMORY_MB", }
   *
-  openstack_placement_resource_allocation_ratio{job="integrations/openstack", resourcetype="MEMORY_MB"}) > 0)
+  openstack_placement_resource_allocation_ratio{resourcetype="MEMORY_MB", }) > 0)
   > 90
 for: 5m
 keep_firing_for: 5m
@@ -130,11 +130,11 @@ annotations:
     which is above the threshold of 80 percent.
   summary: OpenStack node is using a significant percentage of its allocated vCPU.
 expr: |
-  (100 * (openstack_placement_resource_usage{job="integrations/openstack", resourcetype="VCPU"})
+  (100 * (openstack_placement_resource_usage{resourcetype="VCPU", })
   /
-  (openstack_placement_resource_total{job="integrations/openstack", resourcetype="VCPU"}
+  (openstack_placement_resource_total{resourcetype="VCPU", }
   *
-  openstack_placement_resource_allocation_ratio{job="integrations/openstack", resourcetype="VCPU"}) > 0)
+  openstack_placement_resource_allocation_ratio{resourcetype="VCPU", }) > 0)
   > 80
 for: 5m
 keep_firing_for: 5m
@@ -153,11 +153,11 @@ annotations:
   summary: OpenStack node is using a large percentage of its allocated vCPU, consider
     allocating more resources.
 expr: |
-  (100 * (openstack_placement_resource_usage{job="integrations/openstack", resourcetype="VCPU"})
+  (100 * (openstack_placement_resource_usage{resourcetype="VCPU", })
   /
-  (openstack_placement_resource_total{job="integrations/openstack", resourcetype="VCPU"}
+  (openstack_placement_resource_total{resourcetype="VCPU", }
   *
-  openstack_placement_resource_allocation_ratio{job="integrations/openstack", resourcetype="VCPU"}) > 0)
+  openstack_placement_resource_allocation_ratio{resourcetype="VCPU", }) > 0)
   > 90
 for: 5m
 keep_firing_for: 5m
@@ -173,14 +173,14 @@ annotations:
   description: |
     Network {{$labels.network_name}} is running out of free IP addresses on OpenStack {{$labels.instance}},
     {{ printf "%.0f" $value }} percent of the pool used,
-    {{ with printf `sum(openstack_neutron_network_ip_availabilities_total{job="integrations/openstack", instance=~"%s", network_name=~"%s"}) - (sum(openstack_neutron_network_ip_availabilities_used{job="integrations/openstack", instance=~"%s", network_name=~"%s"}))` .Labels.instance .Labels.network_name .Labels.instance .Labels.network_name | query -}}{{ . | first | value | humanize }}{{ end }} IP addresses available.
+    {{ with printf `sum(openstack_neutron_network_ip_availabilities_total{instance=~"%s", network_name=~"%s", }) - (sum(openstack_neutron_network_ip_availabilities_used{instance=~"%s", network_name=~"%s", }))` .Labels.instance .Labels.network_name .Labels.instance .Labels.network_name | query -}}{{ . | first | value | humanize }}{{ end }} IP addresses available.
   summary: Free IP addresses are running out.
 expr: "100 * 
-sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_used{job=\"integrations/openstack\",
-  network_name=~\".+\"}) 
+sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_used{network_name=~\".+\",
+  }) 
 /
-(sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_total{job=\"integrations/openstack\",
-  network_name=~\".+\"})
+(sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_total{network_name=~\".+\",
+  })
 > 0)
 > 80
 "
@@ -198,14 +198,14 @@ annotations:
   description: |
     Network {{$labels.network_name}} is running out of free IP addresses on OpenStack {{$labels.instance}},
     {{ printf "%.0f" $value }} percent of the pool used,
-    {{ with printf `sum(openstack_neutron_network_ip_availabilities_total{job="integrations/openstack", instance=~"%s", network_name=~"%s"}) - (sum(openstack_neutron_network_ip_availabilities_used{job="integrations/openstack", instance=~"%s", network_name=~"%s"}))` .Labels.instance .Labels.network_name .Labels.instance .Labels.network_name | query -}}{{ . | first | value | humanize }}{{ end }} IP addresses available.
+    {{ with printf `sum(openstack_neutron_network_ip_availabilities_total{instance=~"%s", network_name=~"%s", }) - (sum(openstack_neutron_network_ip_availabilities_used{instance=~"%s", network_name=~"%s", }))` .Labels.instance .Labels.network_name .Labels.instance .Labels.network_name | query -}}{{ . | first | value | humanize }}{{ end }} IP addresses available.
   summary: There are practically no free IP addresses left.
 expr: "100 * 
-sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_used{job=\"integrations/openstack\",
-  network_name=~\".+\"}) 
+sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_used{network_name=~\".+\",
+  }) 
 /
-(sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_total{job=\"integrations/openstack\",
-  network_name=~\".+\"})
+(sum by (job,instance, network_name) (openstack_neutron_network_ip_availabilities_total{network_name=~\".+\",
+  })
 > 0)
 > 90
 "
@@ -215,7 +215,7 @@ labels:
   severity: critical
 {{< /code >}}
  
-### openstack-nova-alertsopenstack
+### openstack-nova-alerts
 
 ##### OpenStackNovaIsDown
 
@@ -225,7 +225,7 @@ annotations:
   description: OpenStack Nova is down on {{ $labels.instance }}.
   summary: OpenStack Nova service is down.
 expr: |
-  openstack_nova_up{job="integrations/openstack"} == 0
+  openstack_nova_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -240,7 +240,7 @@ annotations:
     on OpenStack cluster {{ $labels.instance }}.
   summary: OpenStack Nova agent is down on the specific node.
 expr: |
-  openstack_nova_agent_state{job="integrations/openstack",adminState="enabled"} != 1
+  openstack_nova_agent_state{adminState="enabled", } != 1
 for: 5m
 labels:
   severity: critical
@@ -256,7 +256,7 @@ annotations:
     which is above the threshold of 80 percent.
   summary: VMs are using a high percentage of their allocated memory.
 expr: |
-  100 * openstack_nova_limits_memory_used{job="integrations/openstack"} / (openstack_nova_limits_memory_max{job="integrations/openstack"} > 0) > 80
+  100 * openstack_nova_limits_memory_used{} / (openstack_nova_limits_memory_max{} > 0) > 80
 for: 5m
 labels:
   severity: warning
@@ -272,7 +272,7 @@ annotations:
     which is above the threshold of 80 percent.
   summary: VMs are using a high percentage of their allocated virtual CPUs.
 expr: |
-  100 * openstack_nova_limits_vcpus_used{job="integrations/openstack"} / (openstack_nova_limits_vcpus_max{job="integrations/openstack"} > 0) > 80
+  100 * openstack_nova_limits_vcpus_used{} / (openstack_nova_limits_vcpus_max{} > 0) > 80
 for: 5m
 labels:
   severity: warning
@@ -290,14 +290,14 @@ annotations:
     Please check if the hypervisor was rebooted and if instances need to be started manually.
   summary: Too many VMs are in SHUTOFF or ERROR states on the single hypervisor.
 expr: |
-  count by (job,instance, hypervisor_hostname, availability_zone) (openstack_nova_server_status{job="integrations/openstack", status=~"SHUTOFF|ERROR", hypervisor_hostname!=""})/
-  (count by (job,instance, hypervisor_hostname, availability_zone) (openstack_nova_server_status{job="integrations/openstack"}) > 10) * 100 > 75
+  count by (job,instance, hypervisor_hostname, availability_zone) (openstack_nova_server_status{status=~"SHUTOFF|ERROR", hypervisor_hostname!="", })/
+  (count by (job,instance, hypervisor_hostname, availability_zone) (openstack_nova_server_status{}) > 10) * 100 > 75
 for: 15m
 labels:
   severity: critical
 {{< /code >}}
  
-### openstack-neutron-alertsopenstack
+### openstack-neutron-alerts
 
 ##### OpenStackNeutronIsDown
 
@@ -307,7 +307,7 @@ annotations:
   description: OpenStack Neutron service is down on cluster {{ $labels.instance }}.
   summary: OpenStack Neutron is down.
 expr: |
-  openstack_neutron_up{job="integrations/openstack"} == 0
+  openstack_neutron_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -325,7 +325,7 @@ annotations:
   runbook_url: https://docs.openstack.org/neutron/zed/admin/config-services-agent.html#agent-s-admin-state-specific-config-options
   summary: OpenStack Neutron agent is down on the specific node.
 expr: |
-  openstack_neutron_agent_state{job="integrations/openstack",adminState="up"} != 1
+  openstack_neutron_agent_state{adminState="up", } != 1
 for: 5m
 labels:
   severity: critical
@@ -340,7 +340,7 @@ annotations:
     }} on OpenStack cluster {{ $labels.instance }}.
   summary: OpenStack Neutron L3 agent is down on the specific node.
 expr: |
-  openstack_neutron_l3_agent_of_router{job="integrations/openstack",agent_admin_up="true"} != 1
+  openstack_neutron_l3_agent_of_router{agent_admin_up="true", } != 1
 for: 5m
 labels:
   severity: critical
@@ -356,7 +356,7 @@ annotations:
     which is above the threshold of 25.
   summary: A high rate of ports have no IP addresses assigned to them.
 expr: |
-  100 * openstack_neutron_ports_no_ips{job="integrations/openstack"} / clamp_min(openstack_neutron_ports{job="integrations/openstack"}, 1) > 25
+  100 * openstack_neutron_ports_no_ips{} / clamp_min(openstack_neutron_ports{}, 1) > 25
 for: 5m
 labels:
   severity: critical
@@ -372,13 +372,13 @@ annotations:
     which is above the threshold of 15.
   summary: A high rate of routers are currently inactive.
 expr: |
-  100 * openstack_neutron_routers_not_active{job="integrations/openstack"} / clamp_min(openstack_neutron_routers{job="integrations/openstack"}, 1) > 15
+  100 * openstack_neutron_routers_not_active{} / clamp_min(openstack_neutron_routers{}, 1) > 15
 for: 5m
 labels:
   severity: critical
 {{< /code >}}
  
-### openstack-cinder-alertsopenstack
+### openstack-cinder-alerts
 
 ##### OpenStackCinderIsDown
 
@@ -388,7 +388,7 @@ annotations:
   description: OpenStack Cinder service is down on cluster {{ $labels.instance }}.
   summary: OpenStack Cinder is down.
 expr: |
-  openstack_cinder_up{job="integrations/openstack"} == 0
+  openstack_cinder_up{} == 0
 for: 5m
 labels:
   severity: critical
@@ -403,7 +403,7 @@ annotations:
     OpenStack cluster {{ $labels.instance }}.
   summary: OpenStack Cinder agent is down on the specific node.
 expr: |
-  openstack_cinder_agent_state{job="integrations/openstack",adminState="enabled"} != 1
+  openstack_cinder_agent_state{adminState="enabled", } != 1
 for: 5m
 labels:
   severity: critical
@@ -419,7 +419,7 @@ annotations:
     which is above the threshold of 80 percent.
   summary: Cinder pools are using a large amount of their maximum capacity.
 expr: |
-  100 * (openstack_cinder_pool_capacity_total_gb{job="integrations/openstack"} - openstack_cinder_pool_capacity_free_gb{job="integrations/openstack"}) / clamp_min(openstack_cinder_pool_capacity_total_gb{job="integrations/openstack"}, 1) > 80
+  100 * (openstack_cinder_pool_capacity_total_gb{} - openstack_cinder_pool_capacity_free_gb{}) / clamp_min(openstack_cinder_pool_capacity_total_gb{}, 1) > 80
 for: 10m
 labels:
   severity: warning
@@ -435,7 +435,7 @@ annotations:
     which is above the threshold of 80 percent.
   summary: Cinder volumes are using a large amount of their maximum memory.
 expr: |
-  100 * openstack_cinder_limits_volume_used_gb{job="integrations/openstack"} / (openstack_cinder_limits_volume_max_gb{job="integrations/openstack"} > 0) > 80
+  100 * openstack_cinder_limits_volume_used_gb{} / (openstack_cinder_limits_volume_max_gb{} > 0) > 80
 for: 5m
 labels:
   severity: warning
@@ -451,7 +451,7 @@ annotations:
     which is above the threshold of 80 percent.
   summary: Cinder backups are using a large amount of their maximum memory.
 expr: |
-  100 * openstack_cinder_limits_backup_used_gb{job="integrations/openstack"} / (openstack_cinder_limits_backup_max_gb{job="integrations/openstack"} > 0) > 80
+  100 * openstack_cinder_limits_backup_used_gb{} / (openstack_cinder_limits_backup_max_gb{} > 0) > 80
 for: 5m
 labels:
   severity: warning
@@ -461,4 +461,8 @@ labels:
 Following dashboards are generated from mixins and hosted on github:
 
 
-- [*](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/*.json)
+- [openstack-cinder](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/openstack-cinder.json)
+- [openstack-logs](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/openstack-logs.json)
+- [openstack-neutron](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/openstack-neutron.json)
+- [openstack-nova](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/openstack-nova.json)
+- [openstack-overview](https://github.com/monitoring-mixins/website/blob/master/assets/openstack/dashboards/openstack-overview.json)
