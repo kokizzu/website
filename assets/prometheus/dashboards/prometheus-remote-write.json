@@ -764,6 +764,26 @@
                "format": "time_series",
                "intervalFactor": 2,
                "legendFormat": "{{cluster}}:{{instance}} {{remote_name}}:{{url}} p99"
+            },
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "histogram_quantile(0.95, sum by (cluster, instance, remote_name, url) (rate(prometheus_remote_storage_sent_batch_duration_seconds{cluster=~\"$cluster\", instance=~\"$instance\", url=~\"$url\"}[5m])))\n",
+               "format": "time_series",
+               "intervalFactor": 2,
+               "legendFormat": "{{cluster}}:{{instance}} {{remote_name}}:{{url}} p95 (native)"
+            },
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "histogram_quantile(0.99, sum by (cluster, instance, remote_name, url) (rate(prometheus_remote_storage_sent_batch_duration_seconds{cluster=~\"$cluster\", instance=~\"$instance\", url=~\"$url\"}[5m])))\n",
+               "format": "time_series",
+               "intervalFactor": 2,
+               "legendFormat": "{{cluster}}:{{instance}} {{remote_name}}:{{url}} p99 (native)"
             }
          ],
          "title": "Send Batch Duration (p95 / p99)",
