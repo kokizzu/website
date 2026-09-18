@@ -19,14 +19,14 @@ Complete list of pregenerated alerts is available [here](https://github.com/moni
 ### kubernetes-apps
 
 ##### KubePodCrashLooping
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
 
 {{< code lang="yaml" >}}
 alert: KubePodCrashLooping
 annotations:
   description: 'Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container
     }}) is in waiting state (reason: "CrashLoopBackOff").'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
   summary: Pod is crash looping.
 expr: |
   max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics"}[5m]) >= 1
@@ -36,14 +36,14 @@ labels:
 {{< /code >}}
  
 ##### KubePodNotReady
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
 
 {{< code lang="yaml" >}}
 alert: KubePodNotReady
 annotations:
   description: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
     state for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
   summary: Pod has been in a non-ready state for more than 15 minutes.
 expr: |
   sum by (namespace, pod, job, cluster) (
@@ -67,7 +67,7 @@ labels:
 {{< /code >}}
  
 ##### KubeDeploymentGenerationMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeDeploymentGenerationMismatch
@@ -75,7 +75,7 @@ annotations:
   description: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
     }} does not match, this indicates that the Deployment has failed but has not been
     rolled back.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
   summary: Deployment generation mismatch due to possible roll-back
 expr: |
   kube_deployment_status_observed_generation{job="kube-state-metrics"}
@@ -87,14 +87,14 @@ labels:
 {{< /code >}}
  
 ##### KubeDeploymentReplicasMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeDeploymentReplicasMismatch
 annotations:
   description: Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
     matched the expected number of replicas for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch
   summary: Deployment has not matched the expected number of replicas.
 expr: |
   (
@@ -112,14 +112,14 @@ labels:
 {{< /code >}}
  
 ##### KubeDeploymentRolloutStuck
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentrolloutstuck
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentrolloutstuck
 
 {{< code lang="yaml" >}}
 alert: KubeDeploymentRolloutStuck
 annotations:
   description: Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment
     }} is not progressing for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentrolloutstuck
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentrolloutstuck
   summary: Deployment rollout is not progressing.
 expr: |
   kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
@@ -130,14 +130,14 @@ labels:
 {{< /code >}}
  
 ##### KubeStatefulSetReplicasMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeStatefulSetReplicasMismatch
 annotations:
   description: StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not
     matched the expected number of replicas for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch
   summary: StatefulSet has not matched the expected number of replicas.
 expr: |
   (
@@ -155,7 +155,7 @@ labels:
 {{< /code >}}
  
 ##### KubeStatefulSetGenerationMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeStatefulSetGenerationMismatch
@@ -163,7 +163,7 @@ annotations:
   description: StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset
     }} does not match, this indicates that the StatefulSet has failed but has not
     been rolled back.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch
   summary: StatefulSet generation mismatch due to possible roll-back
 expr: |
   kube_statefulset_status_observed_generation{job="kube-state-metrics"}
@@ -175,14 +175,14 @@ labels:
 {{< /code >}}
  
 ##### KubeStatefulSetUpdateNotRolledOut
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout
 
 {{< code lang="yaml" >}}
 alert: KubeStatefulSetUpdateNotRolledOut
 annotations:
   description: StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update
     has not been rolled out.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout
   summary: StatefulSet update has not been rolled out.
 expr: |
   (
@@ -208,14 +208,14 @@ labels:
 {{< /code >}}
  
 ##### KubeDaemonSetRolloutStuck
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck
 
 {{< code lang="yaml" >}}
 alert: KubeDaemonSetRolloutStuck
 annotations:
   description: DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished
     or progressed for at least 15m.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck
   summary: DaemonSet rollout is stuck.
 expr: |
   (
@@ -247,7 +247,7 @@ labels:
 {{< /code >}}
  
 ##### KubeContainerWaiting
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting
 
 {{< code lang="yaml" >}}
 alert: KubeContainerWaiting
@@ -255,7 +255,7 @@ annotations:
   description: 'pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container
     {{ $labels.container}} has been in waiting state for longer than 1 hour. (reason:
     "{{ $labels.reason }}").'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting
   summary: Pod container waiting longer than 1 hour
 expr: |
   kube_pod_container_status_waiting_reason{reason!="CrashLoopBackOff", job="kube-state-metrics"} > 0
@@ -265,14 +265,14 @@ labels:
 {{< /code >}}
  
 ##### KubeDaemonSetNotScheduled
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled
 
 {{< code lang="yaml" >}}
 alert: KubeDaemonSetNotScheduled
 annotations:
   description: '{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset
     }} are not scheduled.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled
   summary: DaemonSet pods are not scheduled.
 expr: |
   kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics"}
@@ -284,14 +284,14 @@ labels:
 {{< /code >}}
  
 ##### KubeDaemonSetMisScheduled
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled
 
 {{< code lang="yaml" >}}
 alert: KubeDaemonSetMisScheduled
 annotations:
   description: '{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset
     }} are running where they are not supposed to run.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled
   summary: DaemonSet pods are misscheduled.
 expr: |
   kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
@@ -301,14 +301,14 @@ labels:
 {{< /code >}}
  
 ##### KubeJobNotCompleted
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobnotcompleted
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobnotcompleted
 
 {{< code lang="yaml" >}}
 alert: KubeJobNotCompleted
 annotations:
   description: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than
     {{ "43200" | humanizeDuration }} to complete.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobnotcompleted
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobnotcompleted
   summary: Job did not complete in time
 expr: |
   time() - max by(namespace, job_name, cluster) (kube_job_status_start_time{job="kube-state-metrics"}
@@ -322,14 +322,14 @@ labels:
  
 ##### KubeJobFailed
 
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
 
 {{< code lang="yaml" >}}
 alert: KubeJobFailed
 annotations:
   description: Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete.
     Removing failed job after investigation should clear this alert.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed
   summary: Job failed to complete.
 expr: |
   kube_job_failed{job="kube-state-metrics"}  > 0
@@ -339,14 +339,14 @@ labels:
 {{< /code >}}
  
 ##### KubeHpaReplicasMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeHpaReplicasMismatch
 annotations:
   description: HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }}
     has not matched the desired number of replicas for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch
   summary: HPA has not matched desired number of replicas.
 expr: |
   (kube_horizontalpodautoscaler_status_desired_replicas{job="kube-state-metrics"}
@@ -368,14 +368,14 @@ labels:
 {{< /code >}}
  
 ##### KubeHpaMaxedOut
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout
 
 {{< code lang="yaml" >}}
 alert: KubeHpaMaxedOut
 annotations:
   description: HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }}
     has been running at max replicas for longer than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout
   summary: HPA is running at max replicas
 expr: |
   (
@@ -394,7 +394,7 @@ labels:
 {{< /code >}}
  
 ##### KubePdbNotEnoughHealthyPods
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepdbnotenoughhealthypods
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepdbnotenoughhealthypods
 
 {{< code lang="yaml" >}}
 alert: KubePdbNotEnoughHealthyPods
@@ -402,7 +402,7 @@ annotations:
   description: PDB {{ $labels.namespace }}/{{ $labels.poddisruptionbudget }} expects
     {{ $value }} more healthy pods. The desired number of healthy pods has not been
     met for at least 15m.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepdbnotenoughhealthypods
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepdbnotenoughhealthypods
   summary: PDB does not have enough healthy pods.
 expr: |
   (
@@ -419,14 +419,14 @@ labels:
 ### kubernetes-resources
 
 ##### KubeCPUOvercommit
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit
 
 {{< code lang="yaml" >}}
 alert: KubeCPUOvercommit
 annotations:
   description: Cluster has overcommitted CPU resource requests for Pods by {{ printf
     "%.2f" $value }} CPU shares and cannot tolerate node failure.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit
   summary: Cluster has overcommitted CPU resource requests.
 expr: |
   # Non-HA clusters.
@@ -459,14 +459,14 @@ labels:
 {{< /code >}}
  
 ##### KubeMemoryOvercommit
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryovercommit
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryovercommit
 
 {{< code lang="yaml" >}}
 alert: KubeMemoryOvercommit
 annotations:
   description: Cluster has overcommitted memory resource requests for Pods by {{ $value
     | humanize }} bytes and cannot tolerate node failure.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryovercommit
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryovercommit
   summary: Cluster has overcommitted memory resource requests.
 expr: |
   # Non-HA clusters.
@@ -499,13 +499,13 @@ labels:
 {{< /code >}}
  
 ##### KubeCPUQuotaOvercommit
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuquotaovercommit
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuquotaovercommit
 
 {{< code lang="yaml" >}}
 alert: KubeCPUQuotaOvercommit
 annotations:
   description: Cluster has overcommitted CPU resource requests for Namespaces.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuquotaovercommit
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuquotaovercommit
   summary: Cluster has overcommitted CPU resource requests.
 expr: |
   sum (
@@ -521,13 +521,13 @@ labels:
 {{< /code >}}
  
 ##### KubeMemoryQuotaOvercommit
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryquotaovercommit
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryquotaovercommit
 
 {{< code lang="yaml" >}}
 alert: KubeMemoryQuotaOvercommit
 annotations:
   description: Cluster has overcommitted memory resource requests for Namespaces.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryquotaovercommit
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryquotaovercommit
   summary: Cluster has overcommitted memory resource requests.
 expr: |
   sum (
@@ -543,14 +543,14 @@ labels:
 {{< /code >}}
  
 ##### KubeQuotaAlmostFull
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaalmostfull
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaalmostfull
 
 {{< code lang="yaml" >}}
 alert: KubeQuotaAlmostFull
 annotations:
   description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage
     }} of its {{ $labels.resource }} quota.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaalmostfull
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaalmostfull
   summary: Namespace quota is going to be full.
 expr: |
   topk by (cluster, namespace, resource, resourcequota) (1,
@@ -571,14 +571,14 @@ labels:
 {{< /code >}}
  
 ##### KubeQuotaFullyUsed
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotafullyused
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotafullyused
 
 {{< code lang="yaml" >}}
 alert: KubeQuotaFullyUsed
 annotations:
   description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage
     }} of its {{ $labels.resource }} quota.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotafullyused
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotafullyused
   summary: Namespace quota is fully used.
 expr: |
   topk by (cluster, namespace, resource, resourcequota) (1,
@@ -599,14 +599,14 @@ labels:
 {{< /code >}}
  
 ##### KubeQuotaExceeded
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
 
 {{< code lang="yaml" >}}
 alert: KubeQuotaExceeded
 annotations:
   description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage
     }} of its {{ $labels.resource }} quota.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
   summary: Namespace quota has exceeded the limits.
 expr: |
   topk by (cluster, namespace, resource, resourcequota) (1,
@@ -626,7 +626,7 @@ labels:
 {{< /code >}}
  
 ##### CPUThrottlingHigh
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh
 
 {{< code lang="yaml" >}}
 alert: CPUThrottlingHigh
@@ -634,7 +634,7 @@ annotations:
   description: '{{ $value | humanizePercentage }} throttling of CPU in namespace {{
     $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod
     }}.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh
   summary: Processes experience elevated CPU throttling.
 expr: |
   sum without (id, metrics_path, name, image, endpoint, job, node) (
@@ -661,7 +661,7 @@ labels:
 ### kubernetes-storage
 
 ##### KubePersistentVolumeFillingUp
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
 
 {{< code lang="yaml" >}}
 alert: KubePersistentVolumeFillingUp
@@ -669,7 +669,7 @@ annotations:
   description: The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }}
     in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{
     . }} {{- end }} is only {{ $value | humanizePercentage }} free.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
   summary: PersistentVolume is filling up.
 expr: |
   (
@@ -689,7 +689,7 @@ labels:
 {{< /code >}}
  
 ##### KubePersistentVolumeFillingUp
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
 
 {{< code lang="yaml" >}}
 alert: KubePersistentVolumeFillingUp
@@ -698,7 +698,7 @@ annotations:
     }} in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster
     {{ . }} {{- end }} is expected to fill up within four days. Currently {{ $value
     | humanizePercentage }} is available.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
   summary: PersistentVolume is filling up.
 expr: |
   (
@@ -720,7 +720,7 @@ labels:
 {{< /code >}}
  
 ##### KubePersistentVolumeInodesFillingUp
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
 
 {{< code lang="yaml" >}}
 alert: KubePersistentVolumeInodesFillingUp
@@ -728,7 +728,7 @@ annotations:
   description: The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }}
     in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{
     . }} {{- end }} only has {{ $value | humanizePercentage }} free inodes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
   summary: PersistentVolumeInodes are filling up.
 expr: |
   (
@@ -748,7 +748,7 @@ labels:
 {{< /code >}}
  
 ##### KubePersistentVolumeInodesFillingUp
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
 
 {{< code lang="yaml" >}}
 alert: KubePersistentVolumeInodesFillingUp
@@ -757,7 +757,7 @@ annotations:
     }} in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster
     {{ . }} {{- end }} is expected to run out of inodes within four days. Currently
     {{ $value | humanizePercentage }} of its inodes are free.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeinodesfillingup
   summary: PersistentVolumeInodes are filling up.
 expr: |
   (
@@ -779,14 +779,14 @@ labels:
 {{< /code >}}
  
 ##### KubePersistentVolumeErrors
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors
 
 {{< code lang="yaml" >}}
 alert: KubePersistentVolumeErrors
 annotations:
   description: The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster
     -}} on Cluster {{ . }} {{- end }} has status {{ $labels.phase }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumeerrors
   summary: PersistentVolume is having issues with provisioning.
 expr: |
   kube_persistentvolume_status_phase{phase=~"Failed|Pending",job="kube-state-metrics"} > 0
@@ -798,14 +798,14 @@ labels:
 ### kubernetes-system
 
 ##### KubeVersionMismatch
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch
 
 {{< code lang="yaml" >}}
 alert: KubeVersionMismatch
 annotations:
   description: There are {{ $value }} different semantic versions of Kubernetes components
     running.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch
   summary: Different semantic versions of Kubernetes components running.
 expr: |
   count by (cluster) (count by (git_version, cluster) (label_replace(kubernetes_build_info{job!~"kube-dns|coredns"},"git_version","$1","git_version","(v[0-9]*.[0-9]*).*"))) > 1
@@ -815,14 +815,14 @@ labels:
 {{< /code >}}
  
 ##### KubeClientErrors
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
 
 {{< code lang="yaml" >}}
 alert: KubeClientErrors
 annotations:
   description: Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance
     }}' is experiencing {{ $value | humanizePercentage }} errors.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
   summary: Kubernetes API server client is experiencing errors.
 expr: |
   (sum(rate(rest_client_requests_total{job="kube-apiserver",code=~"5.."}[5m])) by (cluster, instance, job, namespace)
@@ -837,13 +837,13 @@ labels:
 ### kube-apiserver-slos
 
 ##### KubeAPIErrorBudgetBurn
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
 
 {{< code lang="yaml" >}}
 alert: KubeAPIErrorBudgetBurn
 annotations:
   description: The Kube API server is burning too much error budget.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
   summary: The Kube API server is burning too much error budget.
 expr: |
   sum by(cluster) (apiserver_request:burnrate1h) > (14.40 * 0.01000)
@@ -857,13 +857,13 @@ labels:
 {{< /code >}}
  
 ##### KubeAPIErrorBudgetBurn
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
 
 {{< code lang="yaml" >}}
 alert: KubeAPIErrorBudgetBurn
 annotations:
   description: The Kube API server is burning too much error budget.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
   summary: The Kube API server is burning too much error budget.
 expr: |
   sum by(cluster) (apiserver_request:burnrate6h) > (6.00 * 0.01000)
@@ -877,13 +877,13 @@ labels:
 {{< /code >}}
  
 ##### KubeAPIErrorBudgetBurn
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
 
 {{< code lang="yaml" >}}
 alert: KubeAPIErrorBudgetBurn
 annotations:
   description: The Kube API server is burning too much error budget.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
   summary: The Kube API server is burning too much error budget.
 expr: |
   sum by(cluster) (apiserver_request:burnrate1d) > (3.00 * 0.01000)
@@ -897,13 +897,13 @@ labels:
 {{< /code >}}
  
 ##### KubeAPIErrorBudgetBurn
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
 
 {{< code lang="yaml" >}}
 alert: KubeAPIErrorBudgetBurn
 annotations:
   description: The Kube API server is burning too much error budget.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn
   summary: The Kube API server is burning too much error budget.
 expr: |
   sum by(cluster) (apiserver_request:burnrate3d) > (1.00 * 0.01000)
@@ -919,14 +919,14 @@ labels:
 ### kubernetes-system-apiserver
 
 ##### KubeClientCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeClientCertificateExpiration
 annotations:
   description: A client certificate used to authenticate to kubernetes apiserver is
     expiring in less than 7.0 days.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
   summary: Client certificate is about to expire.
 expr: |
   histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 604800
@@ -938,14 +938,14 @@ labels:
 {{< /code >}}
  
 ##### KubeClientCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeClientCertificateExpiration
 annotations:
   description: A client certificate used to authenticate to kubernetes apiserver is
     expiring in less than 24.0 hours.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
   summary: Client certificate is about to expire.
 expr: |
   histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 86400
@@ -957,14 +957,14 @@ labels:
 {{< /code >}}
  
 ##### KubeAggregatedAPIErrors
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapierrors
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapierrors
 
 {{< code lang="yaml" >}}
 alert: KubeAggregatedAPIErrors
 annotations:
   description: Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }}
     has reported {{ $labels.reason }} errors.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapierrors
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapierrors
   summary: Kubernetes aggregated API has reported errors.
 expr: |
   sum by(cluster, instance, name, reason)(increase(aggregator_unavailable_apiservice_total{job="kube-apiserver"}[1m])) > 0
@@ -974,14 +974,14 @@ labels:
 {{< /code >}}
  
 ##### KubeAggregatedAPIDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapidown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapidown
 
 {{< code lang="yaml" >}}
 alert: KubeAggregatedAPIDown
 annotations:
   description: Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }}
     has been only {{ $value | humanize }}% available over the last 10m.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapidown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapidown
   summary: Kubernetes aggregated API is down.
 expr: |
   (1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="kube-apiserver"}[10m]))) * 100 < 85
@@ -991,13 +991,13 @@ labels:
 {{< /code >}}
  
 ##### KubeAPIDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapidown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapidown
 
 {{< code lang="yaml" >}}
 alert: KubeAPIDown
 annotations:
   description: KubeAPI has disappeared from Prometheus target discovery.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapidown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapidown
   summary: Target disappeared from Prometheus target discovery.
 expr: |
   absent(up{job="kube-apiserver"})
@@ -1007,13 +1007,13 @@ labels:
 {{< /code >}}
  
 ##### KubeAPIInstanceUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiinstanceunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiinstanceunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeAPIInstanceUnreachable
 annotations:
   description: A KubeAPI instance has been unreachable for more than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiinstanceunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiinstanceunreachable
   summary: KubeAPI instance is unreachable.
 expr: |
   up{job="kube-apiserver"} == 0
@@ -1023,14 +1023,14 @@ labels:
 {{< /code >}}
  
 ##### KubeAPITerminatedRequests
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiterminatedrequests
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiterminatedrequests
 
 {{< code lang="yaml" >}}
 alert: KubeAPITerminatedRequests
 annotations:
   description: The kubernetes apiserver has terminated {{ $value | humanizePercentage
     }} of its incoming requests.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiterminatedrequests
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiterminatedrequests
   summary: The kubernetes apiserver has terminated {{ $value | humanizePercentage
     }} of its incoming requests.
 expr: |
@@ -1043,13 +1043,13 @@ labels:
 ### kubernetes-system-kubelet
 
 ##### KubeNodeNotReady
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
 
 {{< code lang="yaml" >}}
 alert: KubeNodeNotReady
 annotations:
   description: '{{ $labels.node }} has been unready for more than 15 minutes.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
   summary: Node is not ready.
 expr: |
   kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
@@ -1061,14 +1061,14 @@ labels:
 {{< /code >}}
  
 ##### KubeNodePressure
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodepressure
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodepressure
 
 {{< code lang="yaml" >}}
 alert: KubeNodePressure
 annotations:
   description: '{{ $labels.node }} has active Condition {{ $labels.condition }}. This
     is caused by resource usage exceeding eviction thresholds.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodepressure
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodepressure
   summary: Node has as active Condition.
 expr: |
   kube_node_status_condition{job="kube-state-metrics",condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
@@ -1080,13 +1080,13 @@ labels:
 {{< /code >}}
  
 ##### KubeNodeUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeNodeUnreachable
 annotations:
   description: '{{ $labels.node }} is unreachable and some workloads may be rescheduled.'
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable
   summary: Node is unreachable.
 expr: |
   (kube_node_spec_taint{job="kube-state-metrics",key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{job="kube-state-metrics",key=~"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn"}) == 1
@@ -1096,14 +1096,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletTooManyPods
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
 
 {{< code lang="yaml" >}}
 alert: KubeletTooManyPods
 annotations:
   description: Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage
     }} of its Pod capacity.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
   summary: Kubelet is running at capacity.
 expr: |
   (
@@ -1125,14 +1125,14 @@ labels:
 {{< /code >}}
  
 ##### KubeNodeReadinessFlapping
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping
 
 {{< code lang="yaml" >}}
 alert: KubeNodeReadinessFlapping
 annotations:
   description: The readiness status of node {{ $labels.node }} has changed {{ $value
     }} times in the last 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping
   summary: Node readiness status is flapping.
 expr: |
   sum(changes(kube_node_status_condition{job="kube-state-metrics",status="true",condition="Ready"}[15m])) by (cluster, node) > 2
@@ -1144,7 +1144,7 @@ labels:
 {{< /code >}}
  
 ##### KubeNodeEviction
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeeviction
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeeviction
 
 {{< code lang="yaml" >}}
 alert: KubeNodeEviction
@@ -1152,7 +1152,7 @@ annotations:
   description: Node {{ $labels.node }} is evicting Pods due to {{ $labels.eviction_signal
     }}.  Eviction occurs when eviction thresholds are crossed, typically caused by
     Pods exceeding RAM/ephemeral-storage limits.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeeviction
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeeviction
   summary: Node is evicting pods.
 expr: |
   sum(rate(kubelet_evictions{job="kubelet"}[15m])) by(cluster, eviction_signal, instance)
@@ -1167,14 +1167,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletPlegDurationHigh
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh
 
 {{< code lang="yaml" >}}
 alert: KubeletPlegDurationHigh
 annotations:
   description: The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration
     of {{ $value }} seconds on node {{ $labels.node }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh
   summary: Kubelet Pod Lifecycle Event Generator is taking too long to relist.
 expr: |
   node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile="0.99"} >= 10
@@ -1184,14 +1184,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletPodStartUpLatencyHigh
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh
 
 {{< code lang="yaml" >}}
 alert: KubeletPodStartUpLatencyHigh
 annotations:
   description: Kubelet Pod startup 99th percentile latency is {{ $value }} seconds
     on node {{ $labels.node }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh
   summary: Kubelet Pod startup latency is too high.
 expr: |
   histogram_quantile(0.99,
@@ -1212,14 +1212,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletClientCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeletClientCertificateExpiration
 annotations:
   description: Client certificate for Kubelet on node {{ $labels.node }} expires in
     {{ $value | humanizeDuration }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
   summary: Kubelet client certificate is about to expire.
 expr: |
   kubelet_certificate_manager_client_ttl_seconds < 604800
@@ -1228,14 +1228,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletClientCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeletClientCertificateExpiration
 annotations:
   description: Client certificate for Kubelet on node {{ $labels.node }} expires in
     {{ $value | humanizeDuration }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration
   summary: Kubelet client certificate is about to expire.
 expr: |
   kubelet_certificate_manager_client_ttl_seconds < 86400
@@ -1244,14 +1244,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletServerCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeletServerCertificateExpiration
 annotations:
   description: Server certificate for Kubelet on node {{ $labels.node }} expires in
     {{ $value | humanizeDuration }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
   summary: Kubelet server certificate is about to expire.
 expr: |
   kubelet_certificate_manager_server_ttl_seconds < 604800
@@ -1260,14 +1260,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletServerCertificateExpiration
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
 
 {{< code lang="yaml" >}}
 alert: KubeletServerCertificateExpiration
 annotations:
   description: Server certificate for Kubelet on node {{ $labels.node }} expires in
     {{ $value | humanizeDuration }}.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration
   summary: Kubelet server certificate is about to expire.
 expr: |
   kubelet_certificate_manager_server_ttl_seconds < 86400
@@ -1276,14 +1276,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletClientCertificateRenewalErrors
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificaterenewalerrors
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificaterenewalerrors
 
 {{< code lang="yaml" >}}
 alert: KubeletClientCertificateRenewalErrors
 annotations:
   description: Kubelet on node {{ $labels.node }} has failed to renew its client certificate
     ({{ $value | humanize }} errors in the last 5 minutes).
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificaterenewalerrors
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificaterenewalerrors
   summary: Kubelet has failed to renew its client certificate.
 expr: |
   increase(kubelet_certificate_manager_client_expiration_renew_errors[5m]) > 0
@@ -1293,14 +1293,14 @@ labels:
 {{< /code >}}
  
 ##### KubeletServerCertificateRenewalErrors
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificaterenewalerrors
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificaterenewalerrors
 
 {{< code lang="yaml" >}}
 alert: KubeletServerCertificateRenewalErrors
 annotations:
   description: Kubelet on node {{ $labels.node }} has failed to renew its server certificate
     ({{ $value | humanize }} errors in the last 5 minutes).
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificaterenewalerrors
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificaterenewalerrors
   summary: Kubelet has failed to renew its server certificate.
 expr: |
   increase(kubelet_server_expiration_renew_errors[5m]) > 0
@@ -1310,13 +1310,13 @@ labels:
 {{< /code >}}
  
 ##### KubeletInstanceUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletinstanceunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletinstanceunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeletInstanceUnreachable
 annotations:
   description: A Kubelet instance has been unreachable for more than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletinstanceunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletinstanceunreachable
   summary: Kubelet instance is unreachable.
 expr: |
   up{job="kubelet"} == 0
@@ -1326,13 +1326,13 @@ labels:
 {{< /code >}}
  
 ##### KubeletDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletdown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletdown
 
 {{< code lang="yaml" >}}
 alert: KubeletDown
 annotations:
   description: Kubelet has disappeared from Prometheus target discovery.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletdown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletdown
   summary: Target disappeared from Prometheus target discovery.
 expr: |
   count by (cluster) (kube_node_info{job="kube-state-metrics"})
@@ -1346,13 +1346,13 @@ labels:
 ### kubernetes-system-scheduler
 
 ##### KubeSchedulerDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerdown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerdown
 
 {{< code lang="yaml" >}}
 alert: KubeSchedulerDown
 annotations:
   description: KubeScheduler has disappeared from Prometheus target discovery.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerdown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerdown
   summary: Target disappeared from Prometheus target discovery.
 expr: |
   absent(up{job="kube-scheduler"})
@@ -1362,13 +1362,13 @@ labels:
 {{< /code >}}
  
 ##### KubeSchedulerInstanceUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerinstanceunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerinstanceunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeSchedulerInstanceUnreachable
 annotations:
   description: A KubeScheduler instance has been unreachable for more than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerinstanceunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeschedulerinstanceunreachable
   summary: KubeScheduler instance is unreachable.
 expr: |
   up{job="kube-scheduler"} == 0
@@ -1380,13 +1380,13 @@ labels:
 ### kubernetes-system-controller-manager
 
 ##### KubeControllerManagerDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown
 
 {{< code lang="yaml" >}}
 alert: KubeControllerManagerDown
 annotations:
   description: KubeControllerManager has disappeared from Prometheus target discovery.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerdown
   summary: Target disappeared from Prometheus target discovery.
 expr: |
   absent(up{job="kube-controller-manager"})
@@ -1396,14 +1396,14 @@ labels:
 {{< /code >}}
  
 ##### KubeControllerManagerInstanceUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerinstanceunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerinstanceunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeControllerManagerInstanceUnreachable
 annotations:
   description: A KubeControllerManager instance has been unreachable for more than
     15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerinstanceunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontrollermanagerinstanceunreachable
   summary: KubeControllerManager instance is unreachable.
 expr: |
   up{job="kube-controller-manager"} == 0
@@ -1415,13 +1415,13 @@ labels:
 ### kubernetes-system-kube-proxy
 
 ##### KubeProxyDown
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxydown
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxydown
 
 {{< code lang="yaml" >}}
 alert: KubeProxyDown
 annotations:
   description: KubeProxy has disappeared from Prometheus target discovery.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxydown
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxydown
   summary: Target disappeared from Prometheus target discovery.
 expr: |
   absent(up{job="kube-proxy"})
@@ -1431,13 +1431,13 @@ labels:
 {{< /code >}}
  
 ##### KubeProxyInstanceUnreachable
-https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxyinstanceunreachable
+https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxyinstanceunreachable
 
 {{< code lang="yaml" >}}
 alert: KubeProxyInstanceUnreachable
 annotations:
   description: A KubeProxy instance has been unreachable for more than 15 minutes.
-  runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxyinstanceunreachable
+  runbook_url: https://github.com/kubernetes-sigs/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeproxyinstanceunreachable
   summary: KubeProxy instance is unreachable.
 expr: |
   up{job="kube-proxy"} == 0
