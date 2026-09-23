@@ -411,6 +411,9 @@ expr: |
     kube_poddisruptionbudget_status_current_healthy{job="kube-state-metrics"}
   )
   > 0
+  and
+  kube_poddisruptionbudget_status_expected_pods{job="kube-state-metrics"}
+  > 0
 for: 15m
 labels:
   severity: warning
